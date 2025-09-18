@@ -17,6 +17,9 @@ place_replacements = {
     "Alsace ": "Alsace"
 }
 
+# dropping two columns
+data = data.drop('Unnamed: 0', axis='columns')
+data = data.drop('taster_twitter_handle', axis='columns')
 
 data["province"] = data["province"].replace(place_replacements)
 data["region_1"] = data["region_1"].replace(place_replacements)

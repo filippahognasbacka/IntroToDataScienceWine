@@ -6,10 +6,9 @@ Wine recommendation system using machine learning.
 
 ## Team members
 
-<-- Aare lisää ittes tähän, en lyötäny sun GitHubia -->
-
 - [@joonarafael](https://github.com/joonarafael)
 - [@filippahognasbacka](https://github.com/filippahognasbacka)
+- [@aarekr](https://github.com/aarekr)
 
 ## Get Started
 
