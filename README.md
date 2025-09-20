@@ -1,4 +1,4 @@
-## Introduction to Data Science Group Project
+#### Introduction to Data Science Group Project
 
 # Cork Sniffer
 
@@ -18,6 +18,18 @@ Create a virtual environment and install the dependencies.
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
+To check outdated dependencies, run:
+
+```bash
+pip-review
+```
+
+To update outdated dependencies, run:
+
+```bash
+pip-review --local --interactive
 ```
 
 ## Source Data
