@@ -32,6 +32,12 @@ To update outdated dependencies, run:
 pip-review --local --interactive
 ```
 
+To start the web app, run (in chat-app folder):
+
+```bash
+flask run
+```
+
 ## Source Data
 
 Source data is fetched from [Label Your Data](https://labelyourdata.com/datasets/wine-review-dataset "Wine Review Dataset | Label Your Data").
