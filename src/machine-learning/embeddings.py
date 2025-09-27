@@ -1,5 +1,10 @@
 import pandas as pd
 import numpy as np
+from os import environ
+
+DEFAULT_PATH = "/../../data/winemag-data-130k-v2.csv"
+
+data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
 
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
@@ -11,7 +16,7 @@ class Embeddings:
         self.embeddings = None
 
     def load_data(self):
-        df = pd.read_csv("/path/to/wine-review-dataset/winemag-data-130k-v2.csv")
+        df = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
         df = df.dropna(subset=["description"])
 
         self.df = df

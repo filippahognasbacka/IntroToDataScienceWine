@@ -1,6 +1,9 @@
 import pandas as pd
+from os import environ
 
-data = pd.read_csv("/path/to/wine-review-dataset/winemag-data-130k-v2.csv")
+DEFAULT_PATH = "/../../data/winemag-data-130k-v2.csv"
+
+data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
 
 data["taster_name"].fillna("Unknown", inplace=True)
 data["taster_twitter_handle"].fillna("Unknown", inplace=True)
