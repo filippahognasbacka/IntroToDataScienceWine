@@ -1,7 +1,10 @@
 import pandas as pd
 from os import environ
+from dotenv import load_dotenv
 
-DEFAULT_PATH = "/../../data/winemag-data-130k-v2.csv"
+load_dotenv()
+
+DEFAULT_PATH = "../../data/winemag-data-130k-v2.csv"
 
 data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
 
