@@ -1,10 +1,12 @@
 import pandas as pd
 from os import environ
 from dotenv import load_dotenv
+import re
 
 load_dotenv()
 
-DEFAULT_PATH = "../../data/winemag-data-130k-v2.csv"
+DEFAULT_PATH = DEFAULT_PATH = "/home/filippah/Downloads/wine-review-dataset/winemag-data-130k-v2.csv"
+
 
 data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
 
@@ -45,6 +47,17 @@ def new_price(row):
         return mean_price_by_prov[row["province"]]
 
     return data["price"].mean()
+
+def designation(row):
+    if row['designation'] != 'Unknown':
+        return row['designation']
+
+    match = re.search(r'\b\d{4}\s+(.+?)(?:\s*\(|$)', row['title'])
+    if match:
+        return match.group(1).strip()
+    return row['designation']
+
+data['designation'] = data.apply(designation, axis=1)
 
 data["price"] = data.apply(new_price, axis=1)
 data["price"] = data["price"].round()
