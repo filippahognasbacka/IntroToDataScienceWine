@@ -5,7 +5,7 @@ import re
 
 load_dotenv()
 
-DEFAULT_PATH = DEFAULT_PATH = "/home/filippah/Downloads/wine-review-dataset/winemag-data-130k-v2.csv"
+DEFAULT_PATH = DEFAULT_PATH = "/path/to/file/wine-review-dataset/winemag-data-130k-v2.csv"
 
 
 data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
