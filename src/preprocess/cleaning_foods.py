@@ -5,7 +5,7 @@ import re
 
 load_dotenv()
 
-DEFAULT_PATH = "/path/to/Downloads/fruits.csv"
+DEFAULT_PATH = "/home/filippah/Downloads/fruits.csv"
 
 
 data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
@@ -15,13 +15,16 @@ wine_pattern = re.compile(r"(?:FoodVariety|FoodBrandName)\s*:\s*([A-Za-zÀ-ÿ\-]
 
 foods_with_wine = {}
 
+def split_wine_names(name: str) -> str:
+    return re.sub(r'(?<!^)(?=[A-Z])', ' ', name)
+
 for _, row in data.iterrows():
 		wine = row["WineEntity"]
 
 		wine_match = wine_pattern.search(str(wine))
 		if not wine_match:
 				continue
-		wine = wine_match.group(1)
+		wine = split_wine_names(wine_match.group(1))
 
 		foods = []
 
