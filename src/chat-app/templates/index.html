@@ -1,41 +1,87 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Cork Sniffer - Wine Recommender</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+      }
 
-<head>
-  <title>Front page</title>
-</head>
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin: 10px 0;
+        box-sizing: border-box;
+      }
 
-<body>
-  <h1>Cork Sniffer</h1>
-  <h3>Choose wine type</h3>
-  <div>
-    Country <br>
-    <input type="checkbox" id="France" name="France" />
-    <label for="France">France</label> <br>
-    <input type="checkbox" id="Italy" name="Italy" />
-    <label for="Italy">Italy</label> <br>
-    <input type="checkbox" id="Spain" name="Spain" />
-    <label for="Spain">Spain</label> <br>
-  </div>
-  <div>
-    Variety <br>
-    <input type="checkbox" id="PinotNoir" name="PinotNoir" />
-    <label for="PinotNoir">Pinot Noir</label> <br>
-    <input type="checkbox" id="Riesling" name="Riesling" />
-    <label for="Riesling">Riesling</label> <br>
-    <input type="checkbox" id="PortugueseRed" name="PortugueseRed" />
-    <label for="PortugueseRed">Portuguese Red</label> <br>
-    <input type="checkbox" id="WhiteBlend" name="WhiteBlend" />
-    <label for="WhiteBlend">White Blend</label> <br>
-  </div>
-  <div>
-    <button>Show chosen wines</button> <br>
-    <button>Show all wines</button>
-  </div>
-  <div>
-    <h3>Recommendations</h3>
-    {{ recommendations }}
-  </div>
-</body>
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
+      .wine-result {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      .error {
+        color: #d9534f;
+        font-weight: bold;
+        padding: 10px;
+        margin: 10px 0;
+        background: #f2dede;
+        border: 1px solid #ebccd1;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Cork Sniffer</h1>
+    <h3>Describe the wine you're looking for:</h3>
+
+    <p>
+      Example queries:
+    </p>
+    <ul>
+      <li>fruity red wine with cherry notes</li>
+      <li>crisp white wine from Bordeaux</li>
+      <li>sweet red wine with raspberry notes from Spain</li>
+      <li>full-bodied wine from Italy</li>
+    </ul>
+
+    <form method="GET" action="/">
+      <input type="text" name="query" placeholder="e.g., fruity red wine with cherry notes" value="{{ query or '' }}" required>
+      <input type="hidden" name="top_n" value="5">
+      <button type="submit">Search</button>
+    </form>
+
+    {% if error %}
+    <div class="error">Error: {{ error }}</div>
+    {% endif %}
+
+    {% if recommendations %}
+    <h3>Top Recommendations:</h3>
+    {% for wine in recommendations %}
+    <div class="wine-result">
+      <h4>{{ loop.index }}. {{ wine.winery or 'Unknown Winery' }} - {{ wine.variety or 'Unknown Variety' }}</h4>
+      <p><strong>Country:</strong> {{ wine.country or 'N/A' }}</p>
+      <p><strong>Province:</strong> {{ wine.province or 'N/A' }}</p>
+      <p><strong>Region:</strong> {{ wine.region_1 or 'N/A' }}</p>
+      <p><strong>Points:</strong> {{ wine.points or 'N/A' }} | <strong>Price:</strong> ${{ wine.price or 'N/A' }}</p>
+      <p><strong>Description:</strong> {{ wine.description or 'N/A' }}</p>
+      <p><strong>Similarity Score:</strong> {{ "%.3f"|format(wine.similarity_score) if wine.similarity_score else 'N/A' }}</p>
+    </div>
+    {% endfor %}
+    {% elif query %}
+    <p>No wines found.</p>
+    {% endif %}
+  </body>
 </html>
