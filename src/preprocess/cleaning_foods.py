@@ -5,7 +5,7 @@ import re
 
 load_dotenv()
 
-DEFAULT_PATH = "/home/filippah/Downloads/fruits.csv"
+DEFAULT_PATH = "/path/to/fruits.csv"
 
 
 data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
@@ -38,7 +38,7 @@ for _, row in data.iterrows():
 		foods_with_wine[wine] = list(set(foods))
 
 cleaned_data = pd.DataFrame([(wine, food) for wine, foods in foods_with_wine.items()
-for food in foods], columns=["Wine: ", "Food: "])
+for food in foods], columns=["Wine", "Food"])
 
 cleaned_data.to_csv("cleaned_version_foods.csv", index=False)
 
