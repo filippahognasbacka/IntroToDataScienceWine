@@ -8,7 +8,7 @@ load_dotenv()
 DEFAULT_PATH = "/home/filippah/Downloads/wine-review-dataset/winemag-data-130k-v2.csv"
 
 
-data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
+data = pd.read_csv(environ.get("WINE_PATH", DEFAULT_PATH))
 
 data["taster_name"].fillna("Unknown", inplace=True)
 data["taster_twitter_handle"].fillna("Unknown", inplace=True)

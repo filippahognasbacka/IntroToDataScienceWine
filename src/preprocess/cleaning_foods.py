@@ -8,7 +8,7 @@ load_dotenv()
 DEFAULT_PATH = "/path/to/fruits.csv"
 
 
-data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
+data = pd.read_csv(environ.get("FOOD_PATH", DEFAULT_PATH))
 
 food_pattern = re.compile(r"(FoodType|FoodVariety|FoodMeatCut|FoodPreparation|FoodFlavor)\s*:\s*([A-Za-zÀ-ÿ\-]+)")
 wine_pattern = re.compile(r"(?:FoodVariety|FoodBrandName)\s*:\s*([A-Za-zÀ-ÿ\-]+)")

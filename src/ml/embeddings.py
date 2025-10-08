@@ -6,11 +6,11 @@ from typing import Dict, Optional
 
 load_dotenv()
 
-DEFAULT_PATH = "/path/to/src/preprocess/cleaned_version_wines.csv"
+DEFAULT_WINE_PATH = "/path/to/src/preprocess/cleaned_version_wines.csv"
 
 DEFAULT_FOOD_PATH= "/path/to/src/preprocess/cleaned_version_foods.csv"
 
-data = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
+data = pd.read_csv(environ.get("WINE_PATH", DEFAULT_WINE_PATH))
 
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
@@ -25,7 +25,7 @@ class Embeddings:
         self.approach = approach
 
     def load_data(self):
-        df = pd.read_csv(environ.get("DEFAULT_PATH", DEFAULT_PATH))
+        df = pd.read_csv(environ.get("WINE_PATH", DEFAULT_WINE_PATH))
 
         # Keep wines with descriptions and key attributes
         df = df.dropna(subset=["description"])
@@ -39,7 +39,7 @@ class Embeddings:
             df[col] = df[col].fillna("")
 
 
-        food_df = pd.read_csv(environ.get("DEFAULT_FOOD_PATH", DEFAULT_FOOD_PATH))
+        food_df = pd.read_csv(environ.get("FOOD_PATH", DEFAULT_FOOD_PATH))
         food_df["Wine"] = food_df["Wine"].str.strip().str.lower()
         df["variety_norm"] = df["variety"].str.strip().str.lower()
 
