@@ -33,17 +33,24 @@ def index():
 
     error = None
     recommendations = None
-    
+    warning = None
+
     if query:
         try:
             results = embeddings_engine.recommend_wines(query, top_n=top_n)
 
             recommendations = results.to_dict(orient='records')
+
+            low_recommendation = all(rec["similarity_score"] < 0.45 for rec in recommendations)
+            if low_recommendation:
+                warning = "The recommendations may be inaccurate. Please try a different query."
+
         except Exception as e:
             error = str(e)
-    
-    return render_template("index.html", 
-                          query=query, 
+
+    return render_template("index.html",
+                          query=query,
                           top_n=top_n,
                           recommendations=recommendations,
-                          error=error)
+                          error=error,
+                          warning=warning)
