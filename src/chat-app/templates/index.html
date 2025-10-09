@@ -68,6 +68,10 @@
     <div class="error">Error: {{ error }}</div>
     {% endif %}
 
+    {% if warning %}
+    <div class="error">Warning: {{ warning }}</div>
+    {% endif %}
+
     {% if recommendations %}
     <h3>Top Recommendations:</h3>
     {% for wine in recommendations %}
