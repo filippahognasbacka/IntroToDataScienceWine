@@ -40,4 +40,10 @@ flask run
 
 ## Source Data
 
-Source data is fetched from [Label Your Data](https://labelyourdata.com/datasets/wine-review-dataset "Wine Review Dataset | Label Your Data").
+Wine data is fetched from [Label Your Data](https://labelyourdata.com/datasets/wine-review-dataset "Wine Review Dataset | Label Your Data"). Raw file: winemag-data-130k-v2.csv
+
+Wine food pairing data is fetched from [Wolfram Wine Food Pairing](https://resources.wolframcloud.com/FunctionRepository/resources/WineFoodPairing) by installing the Wolfram language.
+
+## Demo Video
+
+[Data Science 2025 demo video Cork Sniffer](https://youtu.be/2XmZGpOC66E)
