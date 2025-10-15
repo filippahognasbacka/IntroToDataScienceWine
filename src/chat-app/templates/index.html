@@ -59,8 +59,19 @@
     </ul>
 
     <form method="GET" action="/">
-      <input type="text" name="query" placeholder="e.g., fruity red wine with cherry notes" value="{{ query or '' }}" required>
+      <fieldset>
+        <legend>Search query:</legend>
+        <div>
+          <input type="text" name="query" placeholder="e.g., fruity red wine with cherry notes" value="{{ query or '' }}" required>
+        </div>
+      </fieldset>
       <input type="hidden" name="top_n" value="5">
+      <fieldset>
+        <legend>Set maximum price:</legend>
+        <div>
+          <input type="text" name="price">
+        </div>
+      </fieldset>
       <button type="submit">Search</button>
     </form>
 

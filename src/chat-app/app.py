@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 from flask import Flask, render_template, request
+import math
 
 # Add the src directory to the path so we can import from ml
 src_path = Path(__file__).parent.parent
@@ -30,9 +31,11 @@ print("Embeddings engine ready.")
 def index():
     query = request.args.get("query", "").strip()
     top_n = int(request.args.get("top_n", 5))
+    max_price = request.args.get("price")
 
     error = None
-    recommendations = None
+    recommendations = []
+    filtered_recommendations = []
     warning = None
 
     if query:
@@ -47,10 +50,21 @@ def index():
 
         except Exception as e:
             error = str(e)
+    
+    if type(max_price) == str:
+        if len(max_price) < 1:
+            max_price = 10000
+
+    if len(recommendations) > 0:
+        for i in range(0, len(recommendations)):
+            if math.isnan(recommendations[i]['price']):
+                continue  # wine not added to recommendations
+            elif int(recommendations[i]['price']) <= int(max_price):
+                filtered_recommendations.append(recommendations[i])
 
     return render_template("index.html",
                           query=query,
                           top_n=top_n,
-                          recommendations=recommendations,
+                          recommendations=filtered_recommendations,
                           error=error,
                           warning=warning)
