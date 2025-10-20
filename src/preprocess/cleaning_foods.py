@@ -5,7 +5,7 @@ import re
 
 load_dotenv()
 
-DEFAULT_PATH = "/path/to/fruits.csv"
+DEFAULT_PATH = "/path/to/wolfram_wine_food_pairing.csv"
 
 
 data = pd.read_csv(environ.get("FOOD_PATH", DEFAULT_PATH))

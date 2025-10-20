@@ -54,11 +54,18 @@ def index():
     if type(max_price) == str:
         if len(max_price) < 1:
             max_price = 10000
+        elif any(char.isalpha() for char in max_price):
+            warning = "Price field can't have letters in it"
+        elif "-" in max_price:
+            warning = "Price can't be negative"
 
     if len(recommendations) > 0:
         for i in range(0, len(recommendations)):
             if math.isnan(recommendations[i]['price']):
                 continue  # wine not added to recommendations
+            elif warning is not None:
+                max_price = 10000
+                print("max_price set to:", max_price)
             elif int(recommendations[i]['price']) <= int(max_price):
                 filtered_recommendations.append(recommendations[i])
 
